@@ -1,0 +1,8 @@
+
+// // getsummoner by name to get PUUIDs 
+// /lol/summoner/v4/summoners/by-name/{summonerName}
+// https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName
+
+// // getsummonget list of matches by  PUUIDs
+// /lol/match/v5/matches/by-puuid/{puuid}/ids
+// https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID
