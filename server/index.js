@@ -1,7 +1,7 @@
 const express = require("express")
 const PORT = process.env.PORT || 3001;
 const app = express();
-const apiKey = "RGAPI-a7fe9997-46bf-4a26-a959-47af274b348d"
+const apiKey = ""
 // /lol/summoner/v4/summoners/by-name/{summonerName}
 // https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName
 
