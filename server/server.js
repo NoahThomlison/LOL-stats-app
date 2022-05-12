@@ -1,7 +1,7 @@
 const express = require("express")
 const PORT = process.env.PORT || 3001;
 const app = express();
-const apiKey = ""
+const apiKey = "RGAPI-a7fe9997-46bf-4a26-a959-47af274b348d"
 // /lol/summoner/v4/summoners/by-name/{summonerName}
 // https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName
 
@@ -18,7 +18,6 @@ app.get('/name', (req, res) => {
   const nameURL = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`
   console.log("name endpoint")
   res.json({ message: "Hello from server!" });
-  res.send("hello")
   fetch(nameURL, {
   method: "GET",
   headers:  {
@@ -32,6 +31,7 @@ app.get('/name', (req, res) => {
 .then(response => response.json()) 
 .then(json => console.log(json)); 
 // .catch(err => console.log(err));
+return
 
 })
 
