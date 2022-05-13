@@ -7,31 +7,50 @@ function App() {
   const [summoner, setSummoner] = useState()
   const [value, setValue] = useState('');
   const [matchData, setMatchData] = useState()
-
+  const params = {
+    method: 'GET',
+    headers: {
+        'accept': 'application/json'
+    }
+};
   const onChange = (event) => {
     setValue(event.target.value);
   };
 
-  const getData = async () => {
-    let response = await fetch('http://example.com/movies.json')
-    let data = await response.json()
-    setMatchData(data)
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // getData(summoner)
+    fetch("http://localhost:3001")
+    .then(res => res.text())
+    // .then(res => this.setState({ apiResponse: res }));
+
+    // fetch('http://localhost:3001/', params)
+    // .then(response => response.json())
+    // .then(data => console.log(data));
   }
 
-  useEffect(() => {
-    getData(summoner)
-  }, [summoner])
+  const getData = () => {
+    fetch('http://localhost:3001/', params)
+  .then(response => response.json())
+  .then(data => console.log(data));
+    // let response = await fetch('http://localhost:3001/')
+    // let data = await response.json()
+    // // let data = "test"
+    // console.log(data)
+    // // setMatchData(data)
+  }
 
-  // const setSummoner = () => {
-
-  // }
+  // useEffect(() => {
+  //   getData(summoner)
+  // }, [summoner])
 
   return (
     <div className="App">
       <header className="App-header">
-        <form>
+        <h6>Who would you like to find stats for?</h6>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <input value={value} onChange={onChange} placeholder='Who would you like to look up?'></input>
-          <button onClick={() => setSummoner(value)}variant="text">Text</button>
+          <button onClick={() => setSummoner(value)} variant="text">Go</button>
         </form>
       </header>
     </div>
