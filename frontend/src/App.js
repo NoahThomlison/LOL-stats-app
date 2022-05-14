@@ -7,14 +7,21 @@ function App() {
   const [summoner, setSummoner] = useState()
   const [value, setValue] = useState('');
   const [matchData, setMatchData] = useState()
-  const url = "http://localhost:3001"
+  const url = "http://localhost:3001/search"
   const onChange = (event) => {
     setValue(event.target.value);
   };
 
   const handleSubmit =  (event) => {
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify({"value": value}),
+      headers: {
+        "Content-Type": "application/json"
+      }};
+
     event.preventDefault();
-    fetch(url)
+    fetch(url, requestOptions)
       .then((res) => res.json())
       .then((res) => console.log(res))
       .then((data) => setMatchData(data.message));
