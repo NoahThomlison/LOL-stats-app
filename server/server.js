@@ -12,18 +12,8 @@ app.use(express.json());
 const apiKey = ""
 const matchURL = "https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID" 
 
-app.get("/search", (req, res) => {
-  console.log(req.body)
-  console.log("Get")
-  res.json({ message: "Hello from server!" });
-
-});
-
-app.post("/search", (req, res) => {
-  let summonerName = req.body.value
-  console.log(summonerName)
-  const nameURL = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`
-  axios.get(nameURL, {
+const getPlayerPuuid = async (name, url) => {
+  const response = await axios.get(url, {
     headers:  {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
       "Accept-Language": "en-US,en;q=0.9",
@@ -32,21 +22,21 @@ app.post("/search", (req, res) => {
       "X-Riot-Token": apiKey
   }
   })
-  .then(function (response) {
-    // handle success
-    console.log(response.data);
-    // response.json()
+  return response.data.puuid
+}
 
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
-return
+app.get("/search", (req, res) => {
+  console.log(req.body)
+  console.log("Get")
+  res.json({ message: "Hello from server!" });
 
+});
+
+app.post("/search", async (req, res) => {
+  let summonerName = req.body.value
+  const nameURL = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`
+  let puuid = await getPlayerData(summonerName, nameURL)
+  console.log(puuid)
 });
 
 app.listen(PORT, () => {
