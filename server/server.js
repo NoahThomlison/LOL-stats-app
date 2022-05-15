@@ -55,17 +55,18 @@ const getMatchStats = async (match, puuid) => {
   }})
   playerData = response.data.info.participants.filter((participants => participants.puuid === puuid))
 
+  // console.log(playerData)
   //creating matchInfo object
   const matchInfo = {}
   matchInfo.outcome = (playerData[0].win ? "win" : "lose")
-  matchInfo.gameDuration = playerData[0].challenges.gameLength
+  matchInfo.gameDuration = playerData[0].timePlayed
   matchInfo.summonerName = playerData[0].summonerName
   matchInfo.championName = playerData[0].championName
   matchInfo.kills = playerData[0].kills
   matchInfo.deaths = playerData[0].deaths
   matchInfo.assists = playerData[0].assists
   matchInfo.championLevel = playerData[0].champLevel
-  console.log(matchInfo)
+  // console.log(matchInfo)
   return(matchInfo)
 }
 
@@ -78,12 +79,16 @@ app.post("/search", async (req, res) => {
   let summonerName = req.body.value
   let puuid 
   let matchData
+  let matchArray = []
   puuid = await getPlayerPuuid(summonerName)
   matches = await getPlayerMatches(puuid)
   for (const match of matches) {
     matchData = await getMatchStats(match, puuid)
+    matchArray.push(matchData)
   }
-
+  console.log(matchArray.length)
+  console.log(matchArray)
+  res.json(matchArray)
 });
 
 app.listen(PORT, () => {
