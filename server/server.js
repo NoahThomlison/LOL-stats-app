@@ -54,7 +54,19 @@ const getMatchStats = async (match, puuid) => {
       "X-Riot-Token": apiKey
   }})
   playerData = response.data.info.participants.filter((participants => participants.puuid === puuid))
-  return(playerData)
+
+  //creating matchInfo object
+  const matchInfo = {}
+  matchInfo.outcome = (playerData[0].win ? "win" : "lose")
+  matchInfo.gameDuration = playerData[0].challenges.gameLength
+  matchInfo.summonerName = playerData[0].summonerName
+  matchInfo.championName = playerData[0].championName
+  matchInfo.kills = playerData[0].kills
+  matchInfo.deaths = playerData[0].deaths
+  matchInfo.assists = playerData[0].assists
+  matchInfo.championLevel = playerData[0].champLevel
+  console.log(matchInfo)
+  return(matchInfo)
 }
 
 app.get("/search", (req, res) => {
@@ -71,8 +83,10 @@ app.post("/search", async (req, res) => {
   for (const match of matches) {
     matchData = await getMatchStats(match, puuid)
   }
+
 });
 
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`)
 })
+
