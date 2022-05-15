@@ -23,8 +23,7 @@ function App() {
     event.preventDefault();
     fetch(url, requestOptions)
       .then((res) => res.json())
-      .then((res) => console.log(res))
-      .then((data) => setMatchData(data.message));
+      .then((res) => setMatchData(res));
   }
 
   return (
@@ -35,6 +34,22 @@ function App() {
           <input value={value} onChange={onChange} placeholder='Who would you like to look up?'></input>
           <button onClick={() => setSummoner(value)} variant="text">Go</button>
         </form>
+        {matchData ? matchData.map((match) => {
+        return(
+          <div className='matchCard'>
+            <p>Match Outcome: {match.outcome}</p>
+            <p>Match Length: {match.gameDuration}</p>
+            <p>Champion Used Outcome: {match.championName}</p>
+            <p>Champion Level: {match.championLevel}</p>
+            <div className='KDA'>
+              <p>Kills: {match.kills}</p>
+              <p>Deaths: {match.deaths}</p>
+              <p>K/D: {match.kills}/{match.deaths}</p>
+              <p>Assists: {match.assists}</p>
+            </div>
+          </div>
+        )})
+         : ""}
       </header>
     </div>
   );
