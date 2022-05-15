@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const apiKey = ""
+const apiKey = "RGAPI-f7237ff1-0b7f-48e1-970a-8d2ebafa6107"
 const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     "Accept-Language": "en-US,en;q=0.9",

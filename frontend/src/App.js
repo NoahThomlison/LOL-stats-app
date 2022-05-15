@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {Typography, Container, Box, ThemeProvider, Button, IconButton, Grid} from '@mui/material';
+import {Typography, Container, Box, ThemeProvider, Button, IconButton, Grid, Paper, TextField } from '@mui/material';
 import react, {useState, useEffect} from 'react'
 
 function App() {
@@ -28,29 +28,41 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h6>Who would you like to find stats for?</h6>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <input value={value} onChange={onChange} placeholder='Who would you like to look up?'></input>
-          <button onClick={() => setSummoner(value)} variant="text">Go</button>
-        </form>
+      <Container className="Container">
+        <Container>
+          <Paper sx={{padding: "10px"}}>
+          <Typography>Who would you like to find stats for?</Typography>
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <TextField value={value} onChange={onChange} placeholder='Who would you like to look up?'></TextField>
+            </form>
+          </Paper>
+        </Container>
+
+        <Box sx={{display: "flex", flexDirection: "column", height: "50vh", justifyContent: "space-evenly"}}>
         {matchData ? matchData.map((match) => {
         return(
-          <div className='matchCard'>
-            <p>Match Outcome: {match.outcome}</p>
-            <p>Match Length: {match.gameDuration}</p>
-            <p>Champion Used Outcome: {match.championName}</p>
-            <p>Champion Level: {match.championLevel}</p>
-            <div className='KDA'>
-              <p>Kills: {match.kills}</p>
-              <p>Deaths: {match.deaths}</p>
-              <p>K/D: {match.kills}/{match.deaths}</p>
-              <p>Assists: {match.assists}</p>
-            </div>
-          </div>
+          <Container>
+            <Paper>
+              <Box sx={{display: "flex", justifyContent: "space-evenly"}}>
+                <Typography>Match Outcome: {match.outcome}</Typography>
+                <Typography>Match Length: {match.gameDuration}</Typography>
+              </Box>
+              <Box sx={{display: "flex", justifyContent: "space-evenly"}}>
+                <Typography>Champion Used Outcome: {match.championName}</Typography>
+                <Typography>Champion Level: {match.championLevel}</Typography>
+              </Box>
+              <Box sx={{display: "flex", justifyContent: "space-evenly"}}>
+                <Typography>Kills: {match.kills}</Typography>
+                <Typography>Deaths: {match.deaths}</Typography>
+                <Typography>K/D: {match.kills}/{match.deaths}</Typography>
+                <Typography>Assists: {match.assists}</Typography>
+              </Box>
+            </Paper>
+          </Container>
         )})
          : ""}
-      </header>
+      </Box>
+      </Container>
     </div>
   );
 }
